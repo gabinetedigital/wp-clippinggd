@@ -1,6 +1,6 @@
 <?php
 /*
- Plugin Name: WP Governo Escuta
+ Plugin Name: WP Clipping GD
 Plugin URI: http://www.procergs.rs.gov.br
 Description: Plugin Wordpress Clipping GD, desenvolvido pela PROCERGS.
 Version: 1.0.0
