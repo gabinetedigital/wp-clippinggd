@@ -42,16 +42,13 @@ class ListaClippingGDWidget extends WP_Widget
     extract($args, EXTR_SKIP);
  
     $args_query_post = '';
+	$txtreturn = '';
 
-    echo "<li class='span".$instance['colunas']."'><div class='thumbnail clipping_lista ".$instance['css_class']."'>";
-    $titulo = empty($instance['titulo']) ? ' ' : apply_filters('widget_titulo', $instance['titulo']);
+    $titulo  = empty($instance['titulo']) ? ' ' : apply_filters('widget_titulo', $instance['titulo']);
     $colunas = $instance['colunas'];
-    $qtd = $instance['qtd'];
+    $qtd 	 = $instance['qtd'];
     $custom_post = 'clippinggd_clipping';
  
-    if (!empty($titulo))
-      echo $before_title . $titulo . $after_title;;
-	        
     if (!empty($qtd))
     	$args_query_post = $args_query_post . "posts_per_page=" . $qtd;
     
@@ -64,20 +61,34 @@ class ListaClippingGDWidget extends WP_Widget
     }
    
     query_posts($args_query_post);
+	
+	//echo "<li class='span".$instance['colunas']."'><div class='thumbnail clipping_lista ".$instance['css_class']."'>";
+	$txtreturn .= "<div class='clipping'>";
+	if (!empty($titulo))
+		$txtreturn .= "<h3>".$titulo."</h3>";
+	
 	if (have_posts()) : 
-		echo "<ul>";
 		while (have_posts()) : the_post(); 
-			$fonte = get_post_meta(get_the_ID(),'wp_clippinggd_fonte', true);
-			$url = get_post_meta(get_the_ID(),'wp_clippinggd_url', true);
+			$fonte  = get_post_meta(get_the_ID(),'wp_clippinggd_fonte', true);
+			$anexo   = get_post_meta(get_the_ID(),'wp_clippinggd_anexo', true);
+			$url    = get_post_meta(get_the_ID(),'wp_clippinggd_url', true);
 			
-			echo "<li><a href='".$url."' target='_blank'>".get_the_title()."</a><br>Fonte: " . $fonte . "</li>";
-	 		
+			if (!empty($anexo)){
+				$url = wp_get_attachment_url( $anexo );
+			}
+			
+			$txtreturn .= "<blockquote class='pull-right'>";
+			$txtreturn .= "<p class='Lead'>".get_the_title()."</p>";
+			$txtreturn .= "<small><a href='".$url."'>".$fonte."</a></small>";
+			$txtreturn .= "</blockquote>";
+			
 		endwhile;
-		echo "</ul>";
 	endif; 
 	wp_reset_query();
 	
-	echo "</div></li>";
+	$txtreturn .= "</div>";
+	
+	echo $txtreturn;
   }
  
 }
