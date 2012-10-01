@@ -141,7 +141,7 @@ class ClippingGDWidget extends WP_Widget
  
     $args_query_post = '';
 
-    echo "<li class='span".$instance['colunas']."'><div class='thumbnail clipping ".$instance['css_class']."'>";
+    echo "<li class='span".$instance['colunas']."'><div class='thumbnail clipping_unico ".$instance['css_class']."'>";
     $titulo = empty($instance['titulo']) ? ' ' : apply_filters('widget_titulo', $instance['titulo']);
     $colunas = $instance['colunas'];
     $post_id = $instance['post_id'];
