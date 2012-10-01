@@ -8,7 +8,7 @@ class ListaClippingGDWidget extends WP_Widget
 	function ListaClippingGDWidget()
 	{
 		$widget_ops = array('classname' => 'ListaClippingGDWidget', 'description' => 'Lista de Clipping do Gabinete Digital, custom post type.' );
-		$this->WP_Widget('ListaClippingGDWidget', 'Gabinete Digital - Clipping', $widget_ops);
+		$this->WP_Widget('ListaClippingGDWidget', 'Gabinete Digital - Clipping Lista', $widget_ops);
 
 	}
 
@@ -106,7 +106,7 @@ class ClippingGDWidget extends WP_Widget
 	function ClippingGDWidget()
 	{
 		$widget_ops = array('classname' => 'ClippingGDWidget', 'description' => 'Clipping do Gabinete Digital, custom post type.' );
-		$this->WP_Widget('ClippingGDWidget', 'Gabinete Digital - Clipping', $widget_ops);
+		$this->WP_Widget('ClippingGDWidget', 'Gabinete Digital - Clipping Único', $widget_ops);
 	}
 
 	function form($instance)
