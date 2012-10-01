@@ -8,7 +8,8 @@ class ListaClippingGDWidget extends WP_Widget
 	function ListaClippingGDWidget()
 	{
 		$widget_ops = array('classname' => 'ListaClippingGDWidget', 'description' => 'Lista de Clipping do Gabinete Digital, custom post type.' );
-		$this->WP_Widget('ListaClippingGDWidget', 'Gabinete Digital - Clipping', $widget_ops);		
+		$this->WP_Widget('ListaClippingGDWidget', 'Gabinete Digital - Clipping', $widget_ops);
+
 	}
 
 	function form($instance)
@@ -40,7 +41,8 @@ class ListaClippingGDWidget extends WP_Widget
   function widget($args, $instance)
   {
     extract($args, EXTR_SKIP);
- 
+
+	global $wpdb;
     $args_query_post = '';
 	$txtreturn = '';
 
@@ -48,10 +50,10 @@ class ListaClippingGDWidget extends WP_Widget
     $colunas = $instance['colunas'];
     $qtd 	 = $instance['qtd'];
     $custom_post = 'clippinggd_clipping';
- 
-    if (!empty($qtd))
-    	$args_query_post = $args_query_post . "posts_per_page=" . $qtd;
-    
+	
+    if (empty($qtd))
+		$qtd = 4;
+
     if (!empty($custom_post))
     {
     	if ($args_query_post == '')
@@ -61,12 +63,13 @@ class ListaClippingGDWidget extends WP_Widget
     }
    
     query_posts($args_query_post);
-	
-	//echo "<li class='span".$instance['colunas']."'><div class='thumbnail clipping_lista ".$instance['css_class']."'>";
+
 	$txtreturn .= "<div class='clipping'>";
 	if (!empty($titulo))
 		$txtreturn .= "<h3>".$titulo."</h3>";
-	
+
+	$txtreturn .= "<input name='clipping-perpage' type='hidden' id='clipping-perpage' value='$qtd' />";
+	$txtreturn .= "<div id='clipping-itemsclipping'>";
 	if (have_posts()) : 
 		while (have_posts()) : the_post(); 
 			$fonte  = get_post_meta(get_the_ID(),'wp_clippinggd_fonte', true);
@@ -85,12 +88,13 @@ class ListaClippingGDWidget extends WP_Widget
 		endwhile;
 	endif; 
 	wp_reset_query();
-	
+
+	$txtreturn .= "</div>";
 	$txtreturn .= "</div>";
 	
 	echo $txtreturn;
   }
- 
+
 }
 add_action( 'widgets_init', create_function('', 'return register_widget("ListaClippingGDWidget");') );
 
