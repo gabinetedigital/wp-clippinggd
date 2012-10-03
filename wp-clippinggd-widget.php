@@ -64,7 +64,7 @@ class ListaClippingGDWidget extends WP_Widget
    
     query_posts($args_query_post);
 
-	$txtreturn .= "<div class='clipping'>";
+	$txtreturn .= "<div class='clipping ".$instance['css_class']."'>";
 	if (!empty($titulo))
 		$txtreturn .= "<h3>".$titulo."</h3>";
 
