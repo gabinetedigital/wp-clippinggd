@@ -62,6 +62,8 @@ class ListaClippingGDWidget extends WP_Widget
     		$args_query_post = $args_query_post . "&post_type=" . $custom_post;
     }
    
+    $args_query_post .= "&posts_per_page=-1"; //para vir todos os posts
+   
     query_posts($args_query_post);
 
 	$txtreturn .= "<div class='clipping ".$instance['css_class']."'>";
